@@ -24,22 +24,13 @@ export const TIERS = {
     offer: PRO_PLAN_OFFER,
     annualPriceUsd: 300,
     description: "For freelancers and growing teams.",
-    features: [
-      "Everything in Base",
-      "20% more usage than you pay for",
-      "Priority email support",
-    ],
+    features: ["Everything in Base", "20% more usage than you pay for"],
   },
   agency: {
     offer: AGENCY_PLAN_OFFER,
     annualPriceUsd: 1000,
     description: "For agencies with many clients.",
-    features: [
-      "Everything in Pro",
-      "20% more usage than you pay for",
-      "Dedicated Slack Connect channel",
-      "AI enablement: hands-on help setting up agents and workflows for your team",
-    ],
+    features: ["Everything in Pro", "20% more usage than you pay for"],
   },
 } satisfies Record<
   string,

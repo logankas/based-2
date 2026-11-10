@@ -10,6 +10,8 @@ interface ViteTypeOptions {
 }
 
 interface ImportMetaEnv {
+  readonly VITE_BASED_TERMS_URL?: string;
+  readonly VITE_BASED_PRIVACY_URL?: string;
   readonly VITE_SHOW_DEVTOOLS?: string;
   readonly BYPASS_EMAIL_VERIFICATION?: string;
   // more env variables...

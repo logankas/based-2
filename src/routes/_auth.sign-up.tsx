@@ -154,7 +154,7 @@ function SignUpPage() {
           );
         }
         const result = await authClient.signUp.email({
-          name: email.split("@")[0] || "OpenSEO User",
+          name: email.split("@")[0] || "Based User",
           email,
           password: value.password,
           callbackURL: verificationCallbackURL.toString(),

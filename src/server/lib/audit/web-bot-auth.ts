@@ -17,7 +17,7 @@ import { crawlerHeadersFor, type CrawlerAccess } from "@/shared/crawler-access";
 export const CRAWL_USER_AGENT = "OpenSEO-Audit/1.0";
 
 /** Where verifiers fetch our public key: `<origin>/.well-known/http-message-signatures-directory`. */
-const SIGNATURE_AGENT_ORIGIN = "https://app.openseo.so";
+const SIGNATURE_AGENT_ORIGIN = "https://app.basedmkt.com";
 
 const SIGNATURE_LIFETIME_MS = 60_000;
 

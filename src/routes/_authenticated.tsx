@@ -38,7 +38,7 @@ function AuthenticatedShellLayout() {
             variant="secondary"
             className="w-full"
           >
-            Back to OpenSEO
+            Back to Based
           </Button>
         </AuthPageCard>
       </AuthPageShell>

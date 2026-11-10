@@ -75,10 +75,10 @@ const wrangler = z
 // Physical names of the wrangler-era production resources (see git history of
 // wrangler.jsonc). Adoption matches on these exact names/titles.
 const PROD_NAMES = {
-  d1: "open-seo",
-  r2: "open-seo",
-  kv: "every-super-seo",
-  oauthKv: "OAUTH_KV",
+  d1: "based-seo",
+  r2: "based-seo",
+  kv: "based-flags",
+  oauthKv: "based-oauth",
 } as const;
 
 const makeResources = (stage: string, usesD1: boolean) => {
@@ -506,9 +506,7 @@ export default Alchemy.Stack(
     const app = yield* Cloudflare.Worker("open-seo", {
       name: workerName(stage),
       // Prod serves the real domains; the zone is inferred from the hostname.
-      domain: prod
-        ? ["app.openseo.so", "www.app.openseo.so"]
-        : customDomain || undefined,
+      domain: prod ? [new URL(authUrl).hostname] : customDomain || undefined,
       // Prebuilt worker from `vite build` (@cloudflare/vite-plugin). The entry
       // exports the DO + WorkflowEntrypoint classes (re-exported by
       // src/server.ts), which `bundle: false` requires. Sibling chunks under

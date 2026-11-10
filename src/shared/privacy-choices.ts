@@ -1,5 +1,5 @@
-// Optional tracking choices shared by the marketing site (openseo.so) and the
-// app (app.openseo.so). Both read one first-party cookie on `.openseo.so`, so a
+// Optional tracking choices shared by the marketing site (basedmkt.com) and the
+// app (app.basedmkt.com). Both read one first-party cookie on `.basedmkt.com`, so a
 // choice made on either side applies to both. Necessary cookies (sign-in,
 // security, this cookie) are not optional and are not covered here.
 
@@ -10,7 +10,7 @@ export type PrivacyChoices = {
   analytics: boolean;
   /** Partner referral attribution (Dub's referral cookie). */
   referrals: boolean;
-  /** Meta ad measurement: the Meta Pixel and its events on openseo.so, and the
+  /** Meta ad measurement: the Meta Pixel and its events on basedmkt.com, and the
    *  app's signup, setup, checkout and subscription events to Meta's Conversions
    *  API. */
   advertising: boolean;
@@ -126,8 +126,8 @@ export function hasGlobalPrivacyControl(): boolean {
 
 function cookieDomainAttribute(): string {
   const host = location.hostname;
-  return host === "openseo.so" || host.endsWith(".openseo.so")
-    ? "; Domain=openseo.so"
+  return host === "basedmkt.com" || host.endsWith(".basedmkt.com")
+    ? "; Domain=basedmkt.com"
     : "";
 }
 

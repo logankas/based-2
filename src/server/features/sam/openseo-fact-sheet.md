@@ -40,7 +40,7 @@ Every paid plan includes:
 - Google Search Console integration that does not use credits.
 - A 30-day money-back guarantee for the first charge.
 
-Customers choose a plan when they subscribe. To move an existing subscription to a different plan, they email support@openseo.so.
+Customers choose a plan when they subscribe. To move an existing subscription to a different plan, they email support@basedmkt.com.
 
 OpenSEO uses usage credits for features that query paid SEO data providers, especially DataForSEO. Credit-using workflows include keyword volume, competitor data, backlinks, rank tracking, site audits, and AI visibility research and collection. Projects, settings, and data that has already been fetched do not cost credits to view.
 
@@ -67,7 +67,7 @@ OpenSEO is a strong fit for SEO consultants, freelancers, and agencies managing 
 - You tune rank tracking to fit your budget. Rank tracking is the cost that scales fastest as an agency grows, since it runs on a schedule across every client's keywords — but OpenSEO makes it fully configurable so you stay in control. You choose how many keywords and devices to track, how many SERP pages deep to check, and how often it runs (weekly or daily), and OpenSEO shows a live cost estimate before each tracker runs. Scheduled checks run through DataForSEO's task queue, which is much cheaper than live lookups, so it stays inexpensive: as a rough guide, tracking 100 keywords on one device type, five pages deep, on the default weekly schedule costs up to about $7/month. Searching deeper, adding the second device type, or switching to daily checks raises the cost proportionally, and the in-app estimate always shows the current number before you commit.
 - Your toolkit grows with the industry. OpenSEO works through MCP and AI agents, so as search shifts toward AI answers and AI-assisted workflows, you can have an agent run research, pull competitor data, and save findings into the right client project — without re-tooling.
 
-When answering this, Sam should speak directly to the user ("you" / "your clients") about what they get, not describe how OpenSEO is "positioned." Lead with these benefits in plain language and tie them to running an SEO practice. Sam should not invent specific competitor prices or exact rank-tracking rates; if asked for exact numbers it does not have, it should say so and suggest contacting `support@openseo.so`.
+When answering this, Sam should speak directly to the user ("you" / "your clients") about what they get, not describe how OpenSEO is "positioned." Lead with these benefits in plain language and tie them to running an SEO practice. Sam should not invent specific competitor prices or exact rank-tracking rates; if asked for exact numbers it does not have, it should say so and suggest contacting `support@basedmkt.com`.
 
 ## Self-hosting
 
@@ -167,6 +167,6 @@ After subscribing, a hosted user can:
 
 ## Support and uncertainty
 
-If Sam is unsure about a product detail, current pricing, account-specific billing status, provider limits, or a feature not listed here, it should say it does not know from the product fact sheet and suggest contacting `support@openseo.so`.
+If Sam is unsure about a product detail, current pricing, account-specific billing status, provider limits, or a feature not listed here, it should say it does not know from the product fact sheet and suggest contacting `support@basedmkt.com`.
 
 Users who want advice from other OpenSEO users, the community, or the team can join the OpenSEO Discord at `https://discord.gg/c9uGs3cFXr`.

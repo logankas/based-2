@@ -6,13 +6,6 @@ import {
   type PlanOffer,
 } from "@/client/features/billing/plan-offers";
 import { Card, CardContent } from "@/client/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/client/components/ui/tooltip";
-import { SUPPORT_EMAIL } from "@/client/lib/support";
-
 // Shared card for the full-page checkout screens (/subscribe, /yc). Callers
 // pass the CTA and any extra notes as children.
 export function PlanOfferCard({
@@ -81,20 +74,3 @@ export function PlanOfferCard({
 /** The one underline for the links and the tooltip under the plan cards. */
 export const PLAN_FOOTER_LINK_CLASS =
   "underline underline-offset-2 transition-colors hover:text-foreground";
-
-export function PlanGuarantee() {
-  return (
-    <p className="text-center text-xs text-muted-foreground">
-      <Tooltip>
-        <TooltipTrigger className={cn(PLAN_FOOTER_LINK_CLASS, "cursor-help")}>
-          30-day money-back guarantee
-        </TooltipTrigger>
-        <TooltipContent>
-          Not for you yet? Email {SUPPORT_EMAIL} within 30 days of your charge
-          and we'll refund your subscription.
-        </TooltipContent>
-      </Tooltip>
-      . Cancel anytime. Powered by Stripe.
-    </p>
-  );
-}

@@ -21,7 +21,7 @@ export function googleAuthErrorCopy(
       return {
         title: "This account is being deleted",
         description:
-          "You asked us to delete this account, so it can't be signed in to. To keep it, email support@openseo.so before the deletion date.",
+          "You asked us to delete this account, so it can't be signed in to. To keep it, email support@basedmkt.com before the deletion date.",
       };
     case "state_mismatch":
       return {

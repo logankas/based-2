@@ -12,7 +12,7 @@ import * as Cloudflare from "alchemy/Cloudflare";
 import * as Config from "effect/Config";
 import * as Effect from "effect/Effect";
 
-const WORKER_PREFIX = "open-seo";
+const WORKER_PREFIX = "based-seo";
 
 // The one stage that adopts openseo.so's live hosted resources (unsuffixed
 // names, app.openseo.so domain, Postgres). Deliberately not "prod" so a
