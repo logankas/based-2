@@ -2,7 +2,7 @@
 
 The `Deploy production` GitHub workflow builds the dispatched `main` commit,
 runs Postgres migrations, then deploys Alchemy stage `hosted-prod`. It runs only
-when dispatched in `bensenescu/open-seo` on `main`; pushes and PRs never trigger
+when dispatched in `logankas/based-2` on `main`; pushes and PRs never trigger
 it. Runs serialize, and a newer dispatch does not cancel a running migration.
 
 No production secret lives on a developer machine. Everything the deploy needs
@@ -85,7 +85,8 @@ How to create the account deletion keys is in
 [account-deletion.md](account-deletion.md#setting-it-up-in-github).
 
 The workflow fixes `AUTH_MODE=hosted`, `DATABASE_PROVIDER=postgres`,
-`BETTER_AUTH_URL=https://app.openseo.so`, and email verification enabled.
+and email verification enabled. `BETTER_AUTH_URL` is the `BETTER_AUTH_URL`
+variable, or `https://app.basedmkt.com` when unset.
 
 ### Hyperdrive
 
@@ -95,6 +96,21 @@ so origin credentials, caching (keep it disabled), and the origin connection
 limit (30) are changed in the Cloudflare dashboard, not in a deploy. The stack previously declared this
 config as a managed resource with `RemovalPolicy.retain`; the first deployment
 plan should show it being forgotten from state, not deleted.
+
+## First deploy to a new account
+
+The values above marked "existing" have no previous value on a new account:
+generate `BETTER_AUTH_SECRET` and `CRAWLER_ACCESS_SECRET` once
+(`openssl rand -base64 32`), create a Hyperdrive configuration for the
+Postgres database (caching off), and dispatch the first run with
+**Bootstrap Alchemy state store** ticked.
+
+A custom domain needs its zone on the same Cloudflare account. Until
+`basedmkt.com` is, rehearse on the account's workers.dev hostname: set the
+`BETTER_AUTH_URL` variable to `https://based-seo.<subdomain>.workers.dev`.
+That deploy attaches no domain, and Google sign-in, Turnstile, password
+reset, invitations and the PostHog account-deletion values become optional.
+Remove the variable to deploy the launch domain with every check enforced.
 
 ## Trigger a deploy
 

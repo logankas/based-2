@@ -4,6 +4,11 @@ name: Deploy production
 # docs/maintainers/production-deployment.md
 on:
   workflow_dispatch:
+    inputs:
+      bootstrap_state_store:
+        description: First deploy to a new Cloudflare account only — creates Alchemy's state store
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -31,7 +36,9 @@ jobs:
       VITE_BASED_PRIVACY_URL: ${{ vars.VITE_BASED_PRIVACY_URL }}
       AUTH_MODE: hosted
       DATABASE_PROVIDER: postgres
-      BETTER_AUTH_URL: https://app.basedmkt.com
+      # Set the variable to https://based-seo.<subdomain>.workers.dev for the
+      # pre-launch rehearsal; unset, it deploys the launch domain.
+      BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL || 'https://app.basedmkt.com' }}
       BYPASS_EMAIL_VERIFICATION: "false"
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       HYPERDRIVE_ID: ${{ vars.HYPERDRIVE_ID }}
@@ -81,18 +88,29 @@ jobs:
           # deploy, and most values are optional-with-empty-default in the
           # stack. A missing one would deploy cleanly and silently disable
           # that integration, so require everything production depends on.
+          # What the signup → verify → subscribe → check journey needs.
           required=(VITE_BASED_TERMS_URL VITE_BASED_PRIVACY_URL CLOUDFLARE_API_TOKEN POSTGRES_DATABASE_URL
             CLOUDFLARE_ACCOUNT_ID HYPERDRIVE_ID
             DATAFORSEO_API_KEY BETTER_AUTH_SECRET CRAWLER_ACCESS_SECRET
-            GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET
-            TURNSTILE_SITE_KEY TURNSTILE_SECRET_KEY
             LOOPS_API_KEY LOOPS_TRANSACTIONAL_VERIFY_EMAIL_ID
+            AUTUMN_SECRET_KEY AUTUMN_WEBHOOK_SECRET)
+          # Required at launch, optional on the workers.dev rehearsal: Google
+          # sign-in, the signup captcha, password reset, invitations and
+          # account deletion each switch off when unset.
+          launch=(GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET
+            TURNSTILE_SITE_KEY TURNSTILE_SECRET_KEY
             LOOPS_TRANSACTIONAL_RESET_PASSWORD_ID
             LOOPS_TRANSACTIONAL_INVITATION_ID
             LOOPS_TRANSACTIONAL_ACCOUNT_DELETION_ID
-            POSTHOG_HOST POSTHOG_PROJECT_ID POSTHOG_ACCOUNT_DELETION_API_KEY
-            AUTUMN_SECRET_KEY AUTUMN_WEBHOOK_SECRET)
-          optional=(CONTEXT_API_KEY OPENROUTER_API_KEY DUB_API_KEY
+            POSTHOG_HOST POSTHOG_PROJECT_ID POSTHOG_ACCOUNT_DELETION_API_KEY)
+          if [[ "$BETTER_AUTH_URL" == *.workers.dev ]]; then
+            echo "::notice::Rehearsal deploy to $BETTER_AUTH_URL"
+            optional_launch=("${launch[@]}")
+          else
+            required+=("${launch[@]}")
+            optional_launch=()
+          fi
+          optional=("${optional_launch[@]}" CONTEXT_API_KEY OPENROUTER_API_KEY DUB_API_KEY
             META_CONVERSIONS_API_TOKEN GOOGLE_MAPS_API_KEY
             WEB_BOT_AUTH_JWK
             LOOPS_PRODUCT_UPDATES_LIST_ID META_PIXEL_ID
@@ -149,6 +167,14 @@ jobs:
       # --delete-after already removed them unless the upload failed.
       - name: Keep sourcemaps out of the deploy
         run: find dist -name '*.map' -delete
+
+      # Alchemy keeps deploy state in a Worker on the account. A new account
+      # has none until this runs once; later runs leave it unchecked.
+      - name: Bootstrap Alchemy state store
+        if: ${{ inputs.bootstrap_state_store }}
+        run: pnpm alchemy cloudflare bootstrap
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Migrate production Postgres
         run: pnpm db:migrate:pg

@@ -506,7 +506,13 @@ export default Alchemy.Stack(
     const app = yield* Cloudflare.Worker("open-seo", {
       name: workerName(stage),
       // Prod serves the real domains; the zone is inferred from the hostname.
-      domain: prod ? [new URL(authUrl).hostname] : customDomain || undefined,
+      // A prod rehearsal on the account's own workers.dev hostname has no
+      // zone to attach, so it is served on workers.dev alone.
+      domain: prod
+        ? new URL(authUrl).hostname.endsWith(".workers.dev")
+          ? undefined
+          : [new URL(authUrl).hostname]
+        : customDomain || undefined,
       // Prebuilt worker from `vite build` (@cloudflare/vite-plugin). The entry
       // exports the DO + WorkflowEntrypoint classes (re-exported by
       // src/server.ts), which `bundle: false` requires. Sibling chunks under
